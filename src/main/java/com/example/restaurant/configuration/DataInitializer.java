@@ -23,7 +23,7 @@ public class DataInitializer implements CommandLineRunner {
             User user = new User();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("chef123"));
-            user.setRole("ROLE_ADMIN");
+            user.setRole("ADMIN");
             userRepository.save(user);
             System.out.println("Test user created");
         }

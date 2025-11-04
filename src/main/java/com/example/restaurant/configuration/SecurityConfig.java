@@ -31,22 +31,17 @@ public class SecurityConfig {
         http.csrf(csrf ->csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login","/menu/all").permitAll()
-//                        .requestMatchers("/menu/add").hasRole("ADMIN")
+                        .requestMatchers("/auth/**","/menu/all").permitAll()
+                        .requestMatchers("/menu/add").hasAuthority("ADMIN")
+                        .requestMatchers("/feedback").hasAnyAuthority("CUSTOMER","ADMIN")
                         .anyRequest().authenticated()
                 ).httpBasic(Customizer.withDefaults());
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
     }
-//
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
 }

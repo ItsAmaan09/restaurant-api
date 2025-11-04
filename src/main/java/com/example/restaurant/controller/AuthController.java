@@ -33,7 +33,7 @@ public class AuthController {
         User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User not found"));
 
         if (passwordEncoder.matches(password, user.getPassword())) {
-            String token = jwtUtil.generateToken(username);
+            String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
             return Map.of("token", token);
         } else {
             throw new RuntimeException("Invalid credentials");
