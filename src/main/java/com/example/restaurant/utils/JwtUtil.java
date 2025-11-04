@@ -29,6 +29,18 @@ public class JwtUtil {
                 .compact();
     }
 
+    public String generateRefreshToken(String username, String role) {
+        long refreshExpiration = 1000 * 60 * 60 * 24 * 7; // 7 days
+
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role",role)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
