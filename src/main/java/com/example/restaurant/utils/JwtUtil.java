@@ -1,6 +1,5 @@
 package com.example.restaurant.utils;
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -34,7 +33,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 .setSubject(username)
-                .claim("role",role)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
@@ -54,7 +53,7 @@ public class JwtUtil {
     }
 
     public String extractRole(String token) {
-        return extractAllClaims(token).get("role",String.class);
+        return extractAllClaims(token).get("role", String.class);
     }
 
     public boolean isTokenValid(String token) {

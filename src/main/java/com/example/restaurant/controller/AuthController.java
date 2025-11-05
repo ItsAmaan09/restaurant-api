@@ -30,12 +30,12 @@ public class AuthController {
         String username = request.get("username");
         String password = request.get("password");
 
-        User user = userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User not found"));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
 
         if (passwordEncoder.matches(password, user.getPassword())) {
             String accessToken = jwtUtil.generateToken(user.getUsername(), user.getRole());
             String refreshToken = jwtUtil.generateRefreshToken(user.getUsername(), user.getRole());
-            return Map.of("accessToken", accessToken ,"refreshToken", refreshToken);
+            return Map.of("accessToken", accessToken, "refreshToken", refreshToken);
         } else {
             throw new RuntimeException("Invalid credentials");
         }

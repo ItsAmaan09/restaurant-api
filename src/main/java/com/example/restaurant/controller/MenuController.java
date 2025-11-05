@@ -1,13 +1,10 @@
 package com.example.restaurant.controller;
 
 import com.example.restaurant.model.MenuItem;
-import com.example.restaurant.repository.MenuRepository;
 import com.example.restaurant.service.MenuService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,7 +26,7 @@ public class MenuController {
 
     @PutMapping("/update/{id}")
     public MenuItem UpdateItem(@PathVariable int id, @RequestBody MenuItem menuItem) {
-        return service.updateItem(id,menuItem);
+        return service.updateItem(id, menuItem);
     }
 
     @DeleteMapping("/delete/{id}")
